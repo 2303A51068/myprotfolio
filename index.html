@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TasteBite — Delicious Food</title>
+  <style>
+    :root{
+      --bg:#fff7f2;
+      --accent:#e76f51;
+      --muted:#6b6b6b;
+      --card:#ffffff;
+      --glass: rgba(255,255,255,0.6);
+      --radius:16px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#fff);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+    header{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter: blur(6px);
+      background:linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.35));
+      border-bottom:1px solid rgba(0,0,0,0.04);
+    }
+    .nav{
+      max-width:1200px; margin:0 auto; padding:14px 20px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .logo{display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit;}
+    .logo .mark{width:44px; height:44px; border-radius:10px; display:grid; place-items:center; font-weight:700; color:white; background:linear-gradient(135deg,var(--accent),#f4a261);}
+    nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0; align-items:center;}
+    nav a{color:var(--muted); text-decoration:none; font-weight:600;}
+    .cta{background:var(--accent); color:white; padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:700;}
+    .hero{
+      max-width:1200px; margin:28px auto; padding:36px 20px;
+      display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center;
+    }
+    .hero-card{background:var(--card); border-radius:var(--radius); padding:28px; box-shadow:0 10px 30px rgba(0,0,0,0.05);}
+    h1{margin:0 0 12px; font-size:28px;}
+    p.lead{margin:0 0 18px; color:var(--muted);}
+    .search{
+      display:flex; gap:8px;
+    }
+    .search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid #eee;outline:none}
+    .search button{padding:12px 14px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:700}
+    .hero-image{
+      border-radius:18px; overflow:hidden; box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+    }
+    /* Menu */
+    .section{max-width:1200px;margin:30px auto;padding:0 20px}
+    .section h2{margin:0 0 14px}
+    .filters{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap}
+    .filters button{padding:8px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06); background:white; cursor:pointer}
+    .menu-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px}
+    .card{
+      background:var(--card); border-radius:14px; padding:12px; display:flex; gap:12px; align-items:center;
+      box-shadow:0 8px 20px rgba(0,0,0,0.04);
+    }
+    .card img{width:96px;height:72px;object-fit:cover;border-radius:10px}
+    .card .meta{flex:1}
+    .card h3{margin:0 0 6px;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+    .price{font-weight:800;color:var(--accent)}
+    .badge{font-size:12px;padding:6px 8px;border-radius:8px;background:linear-gradient(90deg,#ffd6c9,#fff); border:1px solid rgba(231,111,81,0.06)}
+    /* About & contact */
+    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .footer{margin-top:28px;padding:18px 20px;background:linear-gradient(180deg,#fff,#fff0f0); border-top:1px solid rgba(0,0,0,0.03)}
+    footer .foot-row{max-width:1200px;margin:0 auto; display:flex; justify-content:space-between; gap:12px; align-items:center; padding:8px 0}
+    /* Responsiveness */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr; padding:20px}
+      nav ul{display:none}
+      .mobile-nav{display:flex;gap:8px}
+      .two-col{grid-template-columns:1fr}
+    }
+    /* small touches */
+    .small{font-size:13px;color:var(--muted)}
+    .tag{display:inline-block;padding:6px 8px;border-radius:999px;border:1px solid rgba(0,0,0,0.04);background:#fff; font-size:12px;margin-right:6px}
+    .btn{padding:10px 12px;border-radius:10px;border:0; cursor:pointer}
+    .btn-outline{background:transparent;border:1px solid #eee}
+    .center{display:grid; place-items:center}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="#">
+        <div class="mark">TB</div>
+        <div>
+          <div style="font-weight:800">TasteBite</div>
+          <div style="font-size:12px;color:var(--muted)">Fresh. Tasty. Fast.</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="mobile-nav">
+        <a class="cta" href="#order">Order Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Delicious meals delivered to your door</h1>
+        <p class="lead">Handcrafted dishes using fresh ingredients. Explore our chef specials, combos, and desserts — made daily.</p>
+
+        <div class="search" style="margin-bottom:16px">
+          <input id="searchInput" placeholder="Search dishes, e.g., pizza, biryani..." />
+          <button onclick="applySearch()">Search</button>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <div class="tag">Free delivery over ₹499</div>
+          <div class="tag">Daily specials</div>
+          <div class="tag">Open: 10:00 — 23:00</div>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+          <button class="btn" onclick="scrollToMenu()">See Menu</button>
+          <a class="btn btn-outline" href="#contact">Book a table</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <!-- Replace with your hero image -->
+        <img src="https://images.unsplash.com/photo-1546069901-eacef0df6022?w=1200&q=80&auto=format&fit=crop" alt="hero food" style="width:100%;height:100%;display:block;object-fit:cover;max-height:420px">
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="section">
+      <h2>Our Menu</h2>
+      <div class="filters" role="tablist" aria-label="Menu filters">
+        <button onclick="filterMenu('all')">All</button>
+        <button onclick="filterMenu('starters')">Starters</button>
+        <button onclick="filterMenu('mains')">Mains</button>
+        <button onclick="filterMenu('desserts')">Desserts</button>
+        <button onclick="filterMenu('drinks')">Drinks</button>
+      </div>
+
+      <div class="menu-grid" id="menuGrid">
+        <!-- menu items (data-driven via JS below) -->
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <h2>About TasteBite</h2>
+      <div class="two-col">
+        <div>
+          <p class="small">TasteBite started with a simple idea — bring homemade tastes to busy lives. Our chefs use locally sourced produce and time-tested recipes to create dishes that feel like home.</p>
+          <ul>
+            <li>Chef-curated weekly specials</li>
+            <li>Sustainable packaging</li>
+            <li>Easy online ordering & table reservations</li>
+          </ul>
+        </div>
+        <div style="border-radius:12px;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=900&q=80&auto=format&fit=crop" alt="about" style="width:100%;height:100%;object-fit:cover;min-height:160px">
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / Order form -->
+    <section id="contact" class="section">
+      <h2>Contact & Reservations</h2>
+      <div class="two-col">
+        <div class="hero-card">
+          <form id="contactForm" onsubmit="submitContact(event)">
+            <div style="display:flex;gap:10px;margin-bottom:10px">
+              <input id="name" required placeholder="Your name" style="flex:1;padding:10px;border-radius:10px;border:1px solid #eee" />
+              <input id="phone" required placeholder="Phone" style="width:160px;padding:10px;border-radius:10px;border:1px solid #eee" />
+            </div>
+            <input id="email" placeholder="Email (optional)" style="width:100%;padding:10px;border-radius:10px;border:1px solid #eee;margin-bottom:10px" />
+            <textarea id="msg" placeholder="Message / Order details" style="width:100%;padding:10px;border-radius:10px;border:1px solid #eee;height:110px"></textarea>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+              <div class="small">We will respond within 24 hours.</div>
+              <button type="submit" class="cta">Send</button>
+            </div>
+          </form>
+        </div>
+
+        <div style="display:grid;gap:12px">
+          <div class="hero-card">
+            <h3>Opening Hours</h3>
+            <p class="small">Mon — Sun: 10:00 — 23:00</p>
+            <h3 style="margin-top:12px">Location</h3>
+            <p class="small">123 Food Lane, Flavor Town, Your City</p>
+            <div style="margin-top:8px">
+              <a class="tag" href="tel:+911234567890">Call Us</a>
+              <a class="tag" href="#order">Order Online</a>
+            </div>
+          </div>
+
+          <div class="hero-card center">
+            <div>
+              <div style="font-weight:800;font-size:18px">Catering & Events</div>
+              <div class="small" style="margin-top:8px">We cater corporate and private events. Contact us to get a custom menu and quote.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <footer>
+        <div class="foot-row">
+          <div class="small">© <span id="year"></span> TasteBite • Made with ❤️</div>
+          <div class="small">Follow us:
+            <a class="small" style="margin-left:6px" href="#">Instagram</a> •
+            <a class="small" style="margin-left:6px" href="#">Facebook</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // sample menu data (replace with actual data or generate server-side)
+    const menu = [
+      {id:1, name:"Margherita Pizza", cat:"mains", price:299, desc:"Classic cheese & tomato", img:"https://images.unsplash.com/photo-1604908177522-1d4f3b4aa0d7?w=800&q=60&auto=format&fit=crop"},
+      {id:2, name:"Spicy Chicken Biryani", cat:"mains", price:349, desc:"Aromatic basmati & tender chicken", img:"https://images.unsplash.com/photo-1604908177523-b7d3b7a8b8a5?w=800&q=60&auto=format&fit=crop"},
+      {id:3, name:"Paneer Tikka", cat:"starters", price:219, desc:"Grilled cottage cheese with spices", img:"https://images.unsplash.com/photo-1605475123793-7d1d7b2d6f3a?w=800&q=60&auto=format&fit=crop"},
+      {id:4, name:"Chocolate Lava Cake", cat:"desserts", price:149, desc:"Molten chocolate surprise", img:"https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=800&q=60&auto=format&fit=crop"},
+      {id:5, name:"Mango Lassi", cat:"drinks", price:99, desc:"Creamy mango yogurt drink", img:"https://images.unsplash.com/photo-1497534446932-c925b458314e?w=800&q=60&auto=format&fit=crop"},
+      {id:6, name:"Garlic Bread", cat:"starters", price:129, desc:"Buttery garlic & herbs", img:"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=60&auto=format&fit=crop"},
+      {id:7, name:"Veg Thali", cat:"mains", price:279, desc:"Seasonal veg, dal, rice & roti", img:"https://images.unsplash.com/photo-1604908177524-30a3f9a18229?w=800&q=60&auto=format&fit=crop"},
+      {id:8, name:"Ice Cream Sundae", cat:"desserts", price:129, desc:"Two scoops with toppings", img:"https://images.unsplash.com/photo-1527515637460-4d2f6b0dc7b5?w=800&q=60&auto=format&fit=crop"}
+    ];
+
+    const menuGrid = document.getElementById('menuGrid');
+
+    function renderMenu(list){
+      menuGrid.innerHTML = '';
+      if(!list.length){
+        menuGrid.innerHTML = '<div class="center" style="padding:30px">No items found</div>';
+        return;
+      }
+      list.forEach(item=>{
+        const el = document.createElement('div');
+        el.className = 'card';
+        el.innerHTML = `
+          <img src="${item.img}" alt="${escapeHtml(item.name)}" />
+          <div class="meta">
+            <h3>${escapeHtml(item.name)} <span class="badge" style="float:right"> ${capitalize(item.cat)} </span></h3>
+            <p>${escapeHtml(item.desc)}</p>
+          </div>
+          <div style="text-align:right">
+            <div class="price">₹${item.price}</div>
+            <div style="margin-top:10px"><button class="btn" onclick="addToCart(${item.id})">Add</button></div>
+          </div>
+        `;
+        menuGrid.appendChild(el);
+      });
+    }
+
+    function filterMenu(cat){
+      if(cat === 'all') renderMenu(menu);
+      else renderMenu(menu.filter(m=>m.cat===cat));
+    }
+
+    function capitalize(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+    function addToCart(id){
+      const item = menu.find(x=>x.id===id);
+      alert(item.name + ' added to cart — implement cart behavior server-side or here.');
+    }
+
+    function applySearch(){
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      if(!q) return renderMenu(menu);
+      const filtered = menu.filter(m=> (m.name + ' ' + m.desc).toLowerCase().includes(q));
+      renderMenu(filtered);
+    }
+
+    function scrollToMenu(){ document.getElementById('menu').scrollIntoView({behavior:'smooth'}); }
+
+    // contact form stub — replace with real endpoint integration
+    function submitContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+      if(!name || !phone){ alert('Please add name & phone'); return; }
+      // Here you'd send the data to your server via fetch/AJAX
+      alert('Thanks, ' + name + '! We received your message. (This is a demo alert.)');
+      document.getElementById('contactForm').reset();
+    }
+
+    // simple helper to avoid HTML injection in this demo
+    function escapeHtml(text){
+      return text.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]); });
+    }
+
+    // init
+    renderMenu(menu);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
